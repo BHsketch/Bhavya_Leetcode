@@ -4,81 +4,66 @@
 
 class Solution {
 public:
+    
+    int hash(int element, int least) 
+        {
+            int element2;
+            if(least<0)
+            {
+                element2=element-least;
+            }else if(least>0)
+            {
+                element2=element;
+            }
+            return element2;
+        }
+    
     std::vector<int> twoSum(std::vector<int>& nums, int target) {
+
         int least=nums[0];
-        //int max=nums[0];
-        int target2;
-        int max2;
-        std::vector<int> nums2((nums.size()), 0);
-        int num1;
-        int num2;
+        int max, max1;
+        std::vector<int> half;
         std::vector<int> result;
-        for(int i=0; i<nums.size(); i++)
+        
+        for(int i=0; i<nums.size(); i++) 
         {
             if(nums[i]<least)
             {
                 least=nums[i];
             }
-            if((target-nums[i])<least)
+            if(target-nums[i]<least)
             {
                 least=target-nums[i];
-            } 
-    
-            //max=target-least; 
+            }
         }
-        
-    
-        if(least<0)
-        {
-            target2=target-(2*least);
-            max2=target-(2*least)+1;
-        }else if(least>=0)
-        {
-            target2=target;
-            max2=target-least+1;
-        }
-        
-        std::vector<int> hash(max2, 0);
+        max=target-least;
         
         if(least<0)
         {
-            for(int i=0; i<nums.size(); i++)
-            {
-                nums2[i]=nums[i]-least; 
-                (hash[(nums2[i])])++;
-                if((target2%2)==0 && nums2[i]==(target2/2) && hash[(target2-nums2[i])]==1)
-                {
-                    
-                }else if(hash[(target2-nums2[i])]>0)
-                {
-                    num1=nums2[i];
-                    num2=target2-nums2[i];
-                }
-            }
+            max1=max-least+1;
         }else if(least>=0)
         {
-            for(int i=0; i<nums.size(); i++)
-            {
-                nums2[i]=nums[i];
-                (hash[nums2[i]])++;
-                if((target2%2)==0 && nums2[i]==(target2/2) && hash[(target2-nums2[i])]==1)
-                {
-                   
-                }else if(hash[(target2-nums2[i])]>0)
-                {
-                    num1=nums2[i];
-                    num2=target2-nums2[i];
-                }
-            }
+            max1=max+1;
         }
+        //max1=22
+        std::vector<int> hashmap(max1,0);
         
-        for(int i=0; i<nums2.size(); i++)
+        for(int i=0; i<nums.size(); i++)
         {
-            if((nums2[i]==num1)||(nums2[i]==num2))
+            hashmap[hash(nums[i],least)]=i+1;
+            if(target%2==0 && nums[i]==target/2)
+            {
+                half.push_back(i+1);
+                if(half.size()==2)
+                {
+                    result.push_back(half[0]-1);
+                    result.push_back(half[1]-1);
+                }
+            }else if(hashmap[hash(target-nums[i], least)]>0)
             {
                 result.push_back(i);
+                result.push_back(hashmap[hash(target-nums[i], least)]-1);
             }
-                
         }
         return result;
     }
