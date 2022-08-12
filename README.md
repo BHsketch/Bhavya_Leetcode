@@ -52,3 +52,16 @@ stored at the address they are pointing to
 </li>
 
 </ol>
+
+## Twosum
+
+### first code:
+
+change that needs to be made:
+instead of making an entirely new array of nums2, we somehow incorporate increasing each number by the value of least inside the hash function.
+
+### second code:
+has time complexity O(n) but is still slower than most online submissions
+
+### third code:
+used unordered_map. Code reduced to a single for loop due to fast storage and retrieval of maps and less lines of code. Everything condensed to a single for loop.
