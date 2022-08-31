@@ -2,15 +2,19 @@
 #include<vector>
 #include<unordered_map>
 
-
-
  struct ListNode {
+     public:
      int val;
      ListNode *next;
      ListNode() : val(0), next(nullptr) {}
      ListNode(int x) : val(x), next(nullptr) {}
      ListNode(int x, ListNode *next) : val(x), next(next) {}
   };
+
+  struct ListNode node4(3);
+  struct ListNode node3(1, &node4);
+  struct ListNode node2(2, &node3);
+  struct ListNode node1(4, &node2);
  
 class Solution {
 public:
@@ -62,11 +66,14 @@ public:
         {
             for(int j=0; j<(nums.size()-1); j++)
             {
-                if((nums[j])>(nums[j+1]));
-                temp=nums[j];
-                nums[j]=nums[j+1];
-                nums[j+1]=temp;
+                if((nums[j])>(nums[j+1]))
+                {
+                    temp=nums[j];
+                    nums[j]=nums[j+1];
+                    nums[j+1]=temp;
+                }
             }
+
         }
     }
     
@@ -80,20 +87,36 @@ public:
         {
             hashmap[listiterator->val]=listiterator;
             nums.push_back(listiterator->val);
+            listiterator = (listiterator->next);
         }
         
         bubblesort(nums);
         //no need to return anything from the function since nums was passed by reference. Now nums has been sorted
-        int *ptr1=&nums[0], *ptr2=&nums[1];
-        for(int i=0; (*ptr1)!=nums[(nums.size())-1]; i++)
+
+        int i;
+        
+        for(i=0; i<(nums.size() - 1); i++)
         {
-            ((hashmap[*ptr1])->next)=hashmap[*ptr2];
-            ptr1++;//a vector uses an array as its underlying container so the memory locations are contiguous
-            ptr2++;
+            ((hashmap[nums[i]])->next)=hashmap[nums[i+1]];
         }
         
-        ((hashmap[*ptr2])->next)=nullptr;
+        ((hashmap[nums[i]])->next)=nullptr;
+
+        head = hashmap[nums[0]];
         
         return head;
     }
 };
+
+int main()
+{
+    Solution solution1;
+    ListNode *head = &node1;
+    ListNode *iterator1 = solution1.sortList(head);
+    for(int i=0; i<4; i++)
+    {
+        std::cout<<"element "<<i+1<<" = "<<(iterator1->val)<<std::endl;
+        iterator1=iterator1->next;
+    }
+
+}
