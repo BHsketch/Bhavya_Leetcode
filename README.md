@@ -65,3 +65,16 @@ has time complexity O(n) but is still slower than most online submissions
 
 ### third code:
 used unordered_map. Code reduced to a single for loop due to fast storage and retrieval of maps and less lines of code. Everything condensed to a single for loop.
+
+## SortList
+
+### The first code:
+used bubble sort; worked for basic cases, but not for an input = []
+so added an if statement to directly return if the head is a nullptr
+
+### The second code:
+Used bubble sort; worked for basic cases; exceeded the time limit for cases with large inputs(beacause bubble sort)
+So switched to quicksort but quicksort showed an error
+
+### The third code:
+The quicksort error: heap buffer overflow
