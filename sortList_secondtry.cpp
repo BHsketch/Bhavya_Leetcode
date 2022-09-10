@@ -122,7 +122,6 @@ public:
                     nums[j+1]=temp;
                 }
             }
-
         }
     }
     
